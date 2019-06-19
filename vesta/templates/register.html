@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %} Vesta | Register{% endblock %}
+{% block body %}
+<div class="screen-width column-start-flex">
+    <div class="screen-width center-row-flex">
+        <form action="/register" method="POST" class="register-form column-start-flex">
+            <div class="full-width center-row-flex" style="margin-bottom: 2vh">
+                <div class="page-title txt">Register</div>
+            </div>
+            {% if message %}
+            <div class="full-width center-row-flex" style="margin-bottom: 2vh">
+                <div class="error-txt txt">{{ message }}</div>
+            </div>
+            {% endif %}
+            <div class="full-width center-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="txt">Email</div>
+                    <input class="text-input {% if invalidemail %} error {% endif %}" type="email" placeholder="example@stuy.edu" value="{{ email }}"name="email" style="width: 15vw">
+                </div>
+            </div>
+            <div class="full-width center-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="txt">Password</div>
+                    <input class="text-input {% if invalidpword %} error {% endif %}" type="password" name="password" style="width: 15vw">
+                </div>
+            </div>
+            <div class="full-width center-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="txt">First name</div>
+                    <input class="text-input {% if invalidfname %} error {% endif %}" type="text" name="fname" style="width: 15vw">
+                </div>
+            </div>
+            <div class="full-width center-row-flex" style="margin-bottom: 1.5vh">
+                <div class="column-start-flex">
+                    <div class="txt">Last name</div>
+                    <input class="text-input {% if invalidlname %} error {% endif %}" type="text" name="lname" style="width: 15vw">
+                </div>
+            </div>
+            <div class="full-width center-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <input class="submit-button" value="Register" type="submit" name="lname" style="width: 15vw">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

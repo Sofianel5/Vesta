@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Vesta | Search{% endblock %}
+{% block body %}
+<div class="screen-width center-row-flex page-title txt" style="font-size: 15px; margin-bottom: 5vh">Search Results</div>
+        {% for home in homes %}
+        <div class="screen-width center-row-flex">
+            <div class="home-holder start-row-flex">
+                <img src="static/photos/{{ home[24][0] }}"class="home-img"></img>
+                <div class="info-holder column-start-flex">
+                    <div class="home-title txt" style="margin-bottom: 3vh">{{ home[28] }}</div>
+                    <div class="home-info txt" style="margin-bottom: 3vh">A {{ home[2] }} {{ home[1] }} in {{ home[32] }}, {{ home[8] }}</div>
+                    <div class="home-info txt">A {{ home[6] }} bedroom, {{ home[7] }} baths {{ home[1] }} for {{ home[3] }} guest{% if home[3] > 1 %}s{% endif %}</div>
+                </div>
+                <div class="home-title full-height column-center-flex txt" style="width: 20%">
+                    <div class="home-title" style="margin-bottom: 3vh">${{ home[5] }}/Month</div>
+                    <div class="home-title">Contact:</div>
+                    <div class="home-title">{{ home[29] }}</div>
+                    <div class="home-title">{{ home[30] }}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{% block title %} Vesta | Home{% endblock %}
+{% block body %}
+<div class="screen-width center-row-flex">
+        <!-- RENT -->
+    <div class="landing-form-holder column-center-flex" style="margin-right: 10vw;">
+        <div class="form-title full-width center-row-flex">Find an apartment</div>
+        <form class="full-width column-center-flex" action="/find" method="GET">
+            <div class="full-width start-row-flex">
+                <div class="full-width column-center-flex">
+                    <div class="full-width where-input-holder">
+                        <div class="txt" style="font-weight: 600; margin-bottom: 1vh">Where</div>
+                        <input class="text-input" type="text" name="loc" style="width: 10vw">
+                    </div>
+                </div>
+                <div class="full-width column-center-flex">
+                    <div class="where-input-holder">
+                        <div class="txt" style="font-weight: 600; margin-bottom: 1vh">or anywhere</div>
+                        <input class="checkbox-input" type="checkbox" name="anyloc">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-top: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 1vh">Price range</div>
+                <div class="start-row-flex">
+                    <span class="txt" style="margin-right: .3vw">$</span><input class="number-input" type="number" name="pricemin" min="0" style="margin-right: 1vw" >
+                    <span class="txt" style="margin-right: 1vw">to</span>
+                    <span class="txt" style="margin-right: .3vw">$</span><input class="number-input" type="number" name="pricemin" min="1">
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-top: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 1vh">Residents</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt">Adults</span>
+                        <span class="txt" style="margin-top: 1vh">Children</span>
+                    </div>
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <input class="number-input" type="number" name="adults" min="1" style="margin-right: 1vw" >
+                        <input class="number-input" type="number" name="children" min="0" style="margin-right: 1vw">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width start-row-flex" style="margin-top: 2vh">
+                <input class="submit-button" type="submit" value="Search">
+            </div>
+        </form>
+    </div>
+    <!-- RENT OUT -->
+    <div class="landing-form-holder column-center-flex">
+        <div class="form-title full-width center-row-flex">Rent an apartment</div>
+        {% if error %}
+        <div class="error-txt txt full-width center-row-flex">{{ error }}</div>
+        {% endif %}
+        <form class="full-width column-center-flex" action="/rent" method="GET">
+            <div class="full-width start-row-flex">
+                <div class="full-width column-center-flex">
+                    <div class="full-width column-start-flex where-input-holder">
+                        <div class="txt" style="font-weight: 600; margin-bottom: 1vh">Type</div>
+                        <div style="margin-bottom: .75vh">
+                        <span class="txt" style="margin-right: 1vw">Apartment</span><input class="type" type="radio" value="apt" name="type" style="width: 10vw">
+                        </div>
+                        <div>
+                        <span class="txt" style="margin-right: 1vw">House</span><input class="type" type="radio" value="house" name="type" style="width: 10vw">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width start-row-flex">
+                <div class="full-width column-center-flex">
+                    <div class="full-width column-start-flex where-input-holder">
+                        <div class="txt" style="font-weight: 600; margin-bottom: 1vh">What will the guests have?</div>
+                        <select name="access" class="select">
+                            <option value="whole">Whole place</option>
+                            <option value="privroom">Private room</option>
+                            <option value="sharedroom">Shared room</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-top: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 1vh">Max guests</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt">Max total</span>
+                        <span class="txt" style="margin-top: 1vh">Children allowed?</span>
+                    </div>
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <input class="number-input" type="number" name="maxguests" min="1" style="margin-right: 1vw" >
+                        <input class="number-input" type="checkbox" name="children" style="margin-right: 1vw">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width start-row-flex" style="margin-top: 2vh">
+                <input class="submit-button" type="submit" value="Continue">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

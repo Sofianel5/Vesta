@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %} Vesta | Login{% endblock %}
+{% block body %}
+<div class="screen-width column-start-flex">
+    <div class="screen-width center-row-flex">
+        <form action="/login" method="POST" class="register-form column-start-flex">
+            <div class="full-width center-row-flex" style="margin-bottom: 2vh">
+                <div class="page-title txt">Log In</div>
+            </div>
+            {% if message %}
+            <div class="full-width center-row-flex" style="margin-bottom: 2vh">
+                <div class="error-txt txt">{{ message }}</div>
+            </div>
+            {% endif %}
+            <div class="full-width center-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="txt">Email</div>
+                    <input class="text-input {% if emaile %} error {% endif %}" type="email" placeholder="example@stuy.edu" value="{{ email }}"name="email" style="width: 15vw">
+                </div>
+            </div>
+            <div class="full-width center-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="txt">Password</div>
+                    <input class="text-input {% if passworde %} error {% endif %}" type="password" name="password" style="width: 15vw">
+                </div>
+            </div>
+            <div class="full-width center-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <input class="submit-button" value="Log In" type="submit" name="lname" style="width: 15vw">
+                </div>
+            </div>
+            <div class="full-width center-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="full-width center-row-flex txt" style="margin-bottom: 1vh">or</div>
+                    <a href="/register" class="submit-button column-center-flex" style="text-decoration: none;">Sign Up</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

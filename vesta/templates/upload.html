@@ -1,0 +1,189 @@
+{% extends "layout.html" %}
+{% block title %}Vesta | Rent Out{% endblock %}
+{% block body %}
+<div class="screen-width column-start-flex">
+    <div class="page-title txt screen-width center-row-flex" style="margin-top: 7vh; margin-bottom: 7vh">Rent our your property!{{ error }}</div>
+    <form enctype="multipart/form-data" id="rentform" class="full-width column-center-flex" action="/rent" method="POST">
+            <div class="full-width start-row-flex">
+                <div class="full-width column-center-flex">
+                    <div class="full-width column-start-flex where-input-holder">
+                        <div class="txt" style="font-weight: 600; margin-bottom: 2vh">Type</div>
+                        <div style="margin-bottom: .75vh">
+                        <span class="txt" style="margin-right: 1.5vw">Apartment</span><input class="type" {% if prop %} {% if prop == 'apt' %} checked {% endif %} {% endif %} type="radio" value="apt" name="type" style="width: 10vw">
+                        </div>
+                        <div>
+                        <span class="txt" style="margin-right: 1.5vw">House</span><input class="type" {% if prop %} {% if prop == 'house' %} checked {% endif %} {% endif %} type="radio" value="house" name="type" style="width: 10vw">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width start-row-flex" style="margin-bottom: 2vh">
+                <div class="full-width column-center-flex">
+                    <div class="full-width column-start-flex where-input-holder">
+                        <div class="txt" style="font-weight: 600; margin-bottom: 2vh">What will the guests have?</div>
+                        <select name="access" class="select">
+                            <option {% if access %} {% if access == 'whole' %} selected {% endif %} {% endif %} value="whole">Whole place</option>
+                            <option {% if access %} {% if access == 'privroom' %} selected {% endif %} {% endif %} value="privroom">Private room</option>
+                            <option {% if access %} {% if access == 'sharedroom' %} selected {% endif %} {% endif %} value="sharedroom">Shared room</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-bottom: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 2vh">Max guests</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt">Max total</span>
+                        <span class="txt" style="margin-top: 1.5vh">Children allowed?</span>
+                    </div>
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <input class="number-input" type="number" {% if max_guests %} value="{{ max_guests }}"{% endif %} name="maxguests" autocomplete="off" min="1" style="margin-right: 1.5vw" >
+                        <input class="checkbox-input" type="checkbox" {% if children %} selected {% endif %} name="children" style="margin-right: 1.5vw; margin-top: -.25vh">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-bottom: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 2vh">Beds and baths</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt">Bedrooms</span>
+                        <span class="txt" style="margin-top: 1.5vh">Bathrooms</span>
+                    </div>
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <input class="number-input" type="number" autocomplete="off" name="beds" min="0" style="margin-right: 1.5vw" >
+                        <input class="number-input" type="number" autocomplete="off" name="baths" min="0" style="margin-right: 1.5vw" >
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-bottom: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 2vh">Address</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt">Country</span>
+                        <span class="txt" style="margin-top: 1.5vh">State/Provence</span>
+                        <span class="txt" style="margin-top: 1.5vh">City</span>
+                        <span class="txt" style="margin-top: 1.5vh">Street Address</span>
+                        <span class="txt" style="margin-top: 1.5vh">ZIP or mail code</span>
+                    </div>
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <input class="text-input" type="text" autocomplete="off" name="country" min="0" style="margin-right: 1.5vw">
+                        <input class="text-input" type="text" autocomplete="off" name="state" min="0" style="margin-right: 1.5vw">
+                        <input class="text-input" type="text" autocomplete="off" name="city" min="0" style="margin-right: 1.5vw">
+                        <input class="text-input" type="text" autocomplete="off" name="addy" min="0" style="margin-right: 1.5vw">
+                        <input class="text-input" type="text" autocomplete="off" name="zip" min="0" style="margin-right: 1.5vw">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-bottom: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 2vh">Amenities</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt" style="margin-top: 1.75vh">Furnished</span>
+                        <span class="txt" style="margin-top: 1.75vh">WiFi</span>
+                        <span class="txt" style="margin-top: 1.75vh">Heat</span>
+                        <span class="txt" style="margin-top: 1.75vh">Air Conditioning</span>
+                    </div>
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <input class="checkbox-input" type="checkbox" name="furnished" style="margin-right: 1.5vw">
+                        <input class="checkbox-input" type="checkbox" name="wifi" style="margin-right: 1.5vw">
+                        <input class="checkbox-input" type="checkbox" name="heat" style="margin-right: 1.5vw">
+                        <input class="checkbox-input" type="checkbox" name="ac" style="margin-right: 1.5vw">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-bottom: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 2vh">Rules</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt" style="margin-top: 1.75vh">Pets allowed</span>
+                        <span class="txt" style="margin-top: 1.75vh">Suitable for babies</span>
+                        <span class="txt" style="margin-top: 1.75vh">Parties</span>
+                        <span class="txt" style="margin-top: 1.75vh">Smoking</span>
+                        <span class="txt" style="margin-top: 1.75vh">Noise</span>
+                    </div>
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <input class="checkbox-input" type="checkbox" name="pets" style="margin-right: 1.5vw">
+                        <input class="checkbox-input" type="checkbox" name="babies" style="margin-right: 1.5vw">
+                        <input class="checkbox-input" type="checkbox" name="parties" style="margin-right: 1.5vw">
+                        <input class="checkbox-input" type="checkbox" name="smoking" style="margin-right: 1.5vw">
+                        <input class="checkbox-input" type="checkbox" name="noise" style="margin-right: 1.5vw">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-bottom: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 1vh">Spaces</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt" style="margin-top: 1.5vh">Work space</span>
+                        <span class="txt" style="margin-top: 1.5vh">Gym</span>
+                        <span class="txt" style="margin-top: 1.5vh">Pool</span>
+                    </div>
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <input class="checkbox-input" type="checkbox" name="workspace" style="margin-right: 1.5vw">
+                        <input class="checkbox-input" type="checkbox" name="gym" style="margin-right: 1.5vw">
+                        <input class="checkbox-input" type="checkbox" name="pool" style="margin-right: 1.5vw">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-bottom: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 1.5vh">Photos</div>
+                <span class="txt" style="margin-bottom: 1vh">Select photo files you would like to show</span>
+                <div class="start-row-flex">
+                    <input class="file-input" type="file" multiple name="photos" style="margin-right: 0vw">
+                </div>
+            </div>
+            <div class="full-width start-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="txt">Description</div>
+                    <textarea form="rentform" class="text-input" autocomplete="off" type="text" placeholder="Size, furnishing, style etc..." name="desc" style="width: 15vw"></textarea>
+                </div>
+            </div>
+            <div class="full-width start-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="txt">Tell me about the location...</div>
+                    <textarea form="rentform" class="text-input" type="text" autocomplete="off" placeholder="Center of Moscow, close to train, etc..." name="locdescr" style="width: 15vw"></textarea>
+                </div>
+            </div>
+            <div class="full-width start-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="txt">Tell me about yourself...</div>
+                    <textarea form="rentform" class="text-input" type="text" autocomplete="off" placeholder="Will always be available for call, not usually available, etc..." name="renterdescr" style="width: 15vw"></textarea>
+                </div>
+            </div>
+            <div class="full-width start-row-flex" style="margin-bottom: 1vh">
+                <div class="column-start-flex">
+                    <div class="txt">Title your property</div>
+                    <input class="text-input" type="text" autocomplete="off" placeholder="Beautiful House In Queens" name="title" style="width: 15vw; font-weight: 600">
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-bottom: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 2vh">Contact info</div>
+                <div class="txt">Provide your customers with ways to reach you</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt">Phone</span>
+                        <span class="txt" style="margin-top: 1.5vh">Email</span>
+                    </div>
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <input autocomplete="off" class="text-input" type="number" name="phone" min="1000000000" style="margin-right: 1.5vw">
+                        <input autocomplete="off" class="text-input" type="email" name="email" style="margin-right: 1.5vw">
+                    </div>
+                </div>
+            </div>
+            <div class="full-width column-start-flex" style="margin-bottom: 2vh">
+                <div class="txt" style="font-weight: 600; margin-bottom: 2vh">Rent</div>
+                <div class="start-row-flex">
+                    <div class="column-start-flex" style="margin-right: 3vw">
+                        <span class="txt">Monthly rent</span>
+                    </div>
+                    <div class="start-row-flex" style="margin-right: 3vw">
+                         <span class="txt" style="margin-right: .25vw">$</span><input class="number-input" autocomplete="off" type="number" name="rent" min="0" style="margin-right: 1.5vw" >
+                    </div>
+                </div>
+            </div>
+            <div class="full-width start-row-flex" style="margin-top: 2vh; margin-bottom: 4vh">
+                <input class="submit-button" type="submit" value="Continue">
+            </div>
+        </form>
+</div>
+{% endblock %}
